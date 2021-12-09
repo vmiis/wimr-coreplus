@@ -1,0 +1,52 @@
+<section>
+    <section>
+        <div id=toolbar__ID class="navbar navbar-default" style='background-color: #ccc;'>
+            <span id=title__ID></span>
+            <button id=export__ID type=button class="btn btn-secondary" title='Export' style='margin-right:10px;'>Export</button>
+        </div>
+        <div id=table__ID>
+            <table id=grid__ID></table>
+        </div>
+    </section>
+</section>
+<script>
+    function F__ID(){
+        //-------------------------------
+        $('#title__ID').text("Device Number");
+        var sheet="device-number";
+        var jdata;
+        $('#D__ID').on('load',function(){  
+            jdata="";
+            $('#grid').html('');
+            $vm.request({cmd:'file3',folder:'coreplus',filename:'device-number.xlsx',encoding:'base64'},function(res){
+                if(res.result=="403"){
+                    alert("No permissions");
+                    return;
+                }
+                var workbook = XLSX.read(res.result, {type:"base64"});
+                workbook.SheetNames.forEach(function(sheetName) {
+                    if(sheetName==sheet){
+                        jdata=XLSX.utils.sheet_to_json(workbook.Sheets[sheetName], {header:1});
+                        var txt=$vm.json_to_table(jdata);
+                        $('#grid__ID').html(txt);
+                    }
+                })
+            });
+        })
+        //-------------------------------
+        $('#export__ID').on('click',function(){
+            var records=[];
+            for(var i=1;i<jdata.length;i++){
+                var obj={};
+                obj["Folder"]=jdata[i][0];
+                obj["Number"]=jdata[i][1];
+                records.push(obj);
+            }
+            $vm.download_csv(sheet+".csv",records);
+        })
+        //-------------------------------------------------
+    }
+</script>
+<style>
+    VmInclude:__COMPONENT__/g/grid.01.css
+</style>
