@@ -1,0 +1,27 @@
+<section>
+    VmInclude:__COMPONENT__/g/grid.01.html
+</section>
+<script>
+    function F__ID(){
+        //-------------------------------------
+        VmInclude:__COMPONENT__/g/grid.01.js
+        $('#new__ID').hide();
+        $('#import_export_section').hide();
+        $('#title__ID').text('Clients')
+        //-------------------------------------
+        var fields="clientID,createDate,title,firstname,middlename,preferredname,surname,DOB,gender,Pronouns,Culture,address,suburb,postcode,samePostalAddress,postalAddress,postalSuburb,postalPostcode,homeNo,mobile,workNo,faxNo,email,caseStatus,disclosure,site,caseManager,medicareCardNumber,medicareCardIRN,medicareCardExpireDate,DVAnumber,Fund,FundNumberPosition,clientGroup,marketSource,marketingConsent,externalId,claimNo,OverviewNote1,OverviewNote2,NDISParticipantNumber,NDISAvailableFunds,NDISStartDate,NDISEndDate,NDISFundingType";
+        m.fields="_Form,"+fields;
+        //-------------------------------------
+        m.cell_render=function(records,I,field,td){
+            switch(field){
+            }
+        }
+        //-------------------------------------
+    }
+</script>
+<style>
+    VmInclude:__COMPONENT__/g/grid.01.css
+    #D__ID{
+        height:1px;
+    }
+</style>

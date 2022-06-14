@@ -1,8 +1,23 @@
 <div id=D__ID>
-    <div id=panel__ID>
-        <ul>
-            <li><a href="?/device-number">Device Number</a></li>
-        </ul>
+    <div id=panel__ID class="panel__ID">
+        <div class="block__ID">
+            <span class='title_1__ID'>Data</span>
+            <ul>
+                <li><a href="?/client">Clients</a></li>
+                <li><a href="?/referral">Referrals</a></li>
+                <!--<li><a href="?/referrer">Referrers</a></li>-->
+                <li><a href="?/device-number">Device Number</a></li>
+            </ul>
+        </div>
+        <div class="block__ID">
+            <span class='title_1__ID'>Analysis</span>
+            <ul>
+                <li><a href="?/client-count">Number of patient for each doctor (Data)</a></li>
+                <li><a href="?/client-count-chart">Number of patient for each doctor (Top 20 Chart)</a></li>
+            </ul>
+        </div>
+        <div class="block__ID">
+        </div>
     </div>
     <script>
         function F__ID(){
@@ -13,9 +28,99 @@
                 e.preventDefault();
                 e.stopPropagation();
                 var module_name=$(this).attr('href').replace('?\/','');
-                if(module_name!="") $vm.show_module(module_name,{})
+                switch(module_name){
+                    case "count-contacts": query_contacts(); break;
+                    case "count-studes": query_studies(); break;
+                    case "count-newsletters": query_newsletters(); break;
+                    case "count-snapforms": query_snapforms(); break;
+                    case "count-snapforms_30d": query_snapforms_30d(); break;
+                    default: if(module_name!="") $vm.show_module(module_name,{}); break;
+                }
+                //if(module_name!="") $vm.show_module(module_name,{})
             })
             //---------------------------------------------------------------
+            var query_contacts=function(){
+                var path="/api/data/v9.1/RetrieveTotalRecordCount(EntityNames=['contact'])"
+                $('#msg__ID').text("Please wait...");
+                $vm.get_microsoft_data(path,function(status,data){
+                    $('#msg__ID').text("");
+                    if(status==200){
+                        var jD=JSON.parse(data);
+                        console.log(jD);
+                        var n=jD["EntityRecordCountCollection"]["Values"][0];
+                        $('#count_contacts__ID').text(n);
+                    }
+                    else alert("Error: "+status);
+                })
+            }
+            //---------------------------------------------------------------
+            var query_studies=function(){
+                var path="/api/data/v9.1/RetrieveTotalRecordCount(EntityNames=['woolcock_study'])"
+                $('#msg__ID').text("Please wait...");
+                $vm.get_microsoft_data(path,function(status,data){
+                    $('#msg__ID').text("");
+                    if(status==200){
+                        console.log(jD);
+                        var jD=JSON.parse(data);
+                        var n=jD["EntityRecordCountCollection"]["Values"][0];
+                        $('#count_studies__ID').text(n);
+                    }
+                    else alert("Error: "+status);
+                })
+            }
+            //---------------------------------------------------------------
+            var query_newsletters=function(){
+                var path="/api/data/v9.1/contacts?$count=true&$filter=woolcock_newsletter eq true&$top=1"
+                $('#msg__ID').text("Please wait...");
+                $vm.get_microsoft_data(path,function(status,data){
+                    $('#msg__ID').text("");
+                    if(status==200){
+                        console.log(jD);
+                        var jD=JSON.parse(data);
+                        console.log(jD)
+                        var n=jD["@odata.count"];
+                        $('#count_newsletters__ID').text(n);
+                    }
+                    else alert("Error: "+status);
+                })
+            }
+            //---------------------------------------------------------------
+            var query_snapforms=function(){
+                var path="/api/data/v9.1/contacts?$count=true&$filter=woolcock_contactsource eq 1 and createdby/fullname eq 'Zhiming Administrator' &$top=1"
+                $('#msg__ID').text("Please wait...");
+                $vm.get_microsoft_data(path,function(status,data){
+                    $('#msg__ID').text("");
+                    if(status==200){
+                        console.log(jD);
+                        var jD=JSON.parse(data);
+                        console.log(jD)
+                        var n=jD["@odata.count"];
+                        $('#count_snapforms__ID').text(n);
+                    }
+                    else alert("Error: "+status);
+                })
+            }
+            //---------------------------------------------------------------
+            var query_snapforms_30d=function(){
+                var d=new Date();
+                d.setDate(d.getDate()-30);
+                d=d.toISOString();
+                var path="/api/data/v9.1/contacts?$count=true&$filter=woolcock_contactsource eq 1 and createdon gt '"+d+"' and createdby/fullname eq 'Zhiming Administrator' &$top=1"
+                $('#msg__ID').text("Please wait...");
+                $vm.get_microsoft_data(path,function(status,data){
+                    $('#msg__ID').text("");
+                    if(status==200){
+                        console.log(jD);
+                        var jD=JSON.parse(data);
+                        console.log(jD)
+                        var n=jD["@odata.count"];
+                        $('#count_snapforms_30d__ID').text(n);
+                    }
+                    else alert("Error: "+status);
+                })
+            }
+            //---------------------------------------------------------------
+            //"path":"/api/data/v9.1/contacts?$count=true&$filter=woolcock_newsletter eq true",
         }
     </script>
     <style>
@@ -23,8 +128,32 @@
             height:100%;
             background-color: #fff;
         }
+        /*
         #panel__ID{
             padding:50px 100px;
+
+            display: grid;
+            grid-template-columns: auto auto auto auto;
+            grid-gap: 10px;
+
+        }
+        */
+        .panel__ID{
+            padding:50px 50px 50px 50px;
+            font-size:14px;
+    		max-width: 100%;
+    		column-count: 3;
+    		column-width: 300px;
+    		column-gap: 30px;
+            font-size:14px;
+        }
+        .block__ID{
+            break-inside: avoid-column;
+        }
+        .title_1__ID{
+            font-size: 120%;
+            font-weight: bold;
+            color:#12a18d;
         }
 
         #panel__ID li a{
@@ -51,8 +180,9 @@
         }
 
         @media screen and (max-width: 1200px) {
-            #panel__ID{
-                padding:10px 10px;
+            .panel__ID{
+                padding:20px;
+                column-count: 1;
             }
         }
     </style>

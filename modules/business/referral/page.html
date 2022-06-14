@@ -1,0 +1,27 @@
+<section>
+    VmInclude:__COMPONENT__/g/grid.01.html
+</section>
+<script>
+    function F__ID(){
+        //-------------------------------------
+        VmInclude:__COMPONENT__/g/grid.01.js
+        $('#new__ID').hide();
+        $('#import_export_section').hide();
+        $('#title__ID').text('Referrals')
+        //-------------------------------------
+        var fields="ReferralID,clientid,clientName,ReferrerName,referrerId,referralDate,referralExpiry,groupId,Notes,Deleted,appointmentLimit,Active,ReferrerAddress,ReferrerSuburb,ReferrerPostcode";
+        m.fields="_Form,"+fields;
+        //-------------------------------------
+        m.cell_render=function(records,I,field,td){
+            switch(field){
+            }
+        }
+        //-------------------------------------
+    }
+</script>
+<style>
+    VmInclude:__COMPONENT__/g/grid.01.css
+    #D__ID{
+        height:1px;
+    }
+</style>
