@@ -15,7 +15,7 @@
             //-------------------------------------------------
             var m=$vm.module_list['__MODULE__'];
             //-------------------------------------------------
-            var name="Number of patient for each doctor";
+            var name="Number of patient by each doctor";
             var columns=`
                 Count|count
                 Doctor|doctor
@@ -23,7 +23,7 @@
             //-------------------------------------------------
             var records=[];
             //-------------------------------------------------
-            var a_pipelines=
+            var pipeline=
                 [
                     {
                         "$group":{
@@ -52,12 +52,6 @@
             })
             //-------------------------------------------------
             m.set_req=function(){
-                var pipeline=[];
-                if(a_pipelines!=""){
-                    for(var i=0;i<a_pipelines.length;i++){
-                        pipeline.push(a_pipelines[i]);
-                    }
-                }
                 m.req={cmd:"aggregate",table:m.Table,pipeline:pipeline}
             }
             //-------------------------------------------------

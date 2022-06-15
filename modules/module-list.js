@@ -13,6 +13,7 @@
     
     m[p+"client-count"]         ={url:H+"/business/client-count/page.html",Table:"coreplus-client",form_module:'jsonv',prefix:p};
     m[p+"client-count-chart"]   ={url:H+"/business/client-count-chart/page.html",Table:"coreplus-client",form_module:'jsonv',prefix:p};
-
-
+    m[p+"referral-count"]       ={url:H+"/business/referral-count/page.html",Table:"coreplus-referral",form_module:'jsonv',prefix:p};
+    m[p+"referral-count-by-name-address"]       ={url:H+"/business/referral-count-by-name-address/page.html",Table:"coreplus-referral",form_module:'jsonv',prefix:p};
+    m[p+"referral-count-by-name-address-2021"]       ={url:H+"/business/referral-count-by-name-address-2021/page.html",Table:"coreplus-referral",form_module:'jsonv',prefix:p};
 })();

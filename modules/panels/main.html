@@ -1,16 +1,76 @@
 <div id=D__ID>
     <div id=panel__ID class="panel__ID">
+        
+        <div class="block__ID" >
+            <span class='title_1__ID'>Data</span>
+            <div style="margin-top:6px; width:90%; height:20px; border-top:2px solid #435044"></div>
+        </div>
+        <div class="panel2__ID"  >
+            <div class="block__ID">
+                <ul>
+                    <li><a href="?/client">Clients</a></li>
+                    <li><a href="?/referral">Referrals</a></li>
+                    <li><a href="?/device-number">Device Number</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="block__ID new_c__ID">
+            <span class='title_1__ID'>Data Analysis</span>
+            <div style="margin-top:6px; width:90%; height:20px; border-top:2px solid #435044"></div>
+        </div>
+        <div class="panel2__ID">
+            <div class="block__ID">
+                <span class='title_2__ID'>Number of patients by each doctor</span>
+                <ul>
+                    <li><a href="?/client-count">Data, top 200</a></li>
+                    <li><a href="?/client-count-chart">Chart, top 20</a></li>
+                </ul>
+            </div>
+            <div class="block__ID">
+                <span class='title_2__ID'>Number of referrals by each <br>GP's name (Data, top 200) </span>
+                <ul>
+                    <li><a href="?/referral-count">All years</a></li>
+                    <!--<li><a href="?/referral-count-2021">2021</a></li>-->
+                </ul>
+            </div>
+            <!--
+            <div class="block__ID">
+                <span class='title_2__ID'>Number of referrals by each <br>GP's name (Chart, top 20) </span>
+                <ul>
+                    <li><a href="?/referral-count-chart">All years</a></li>
+                    <li><a href="?/referral-count-chart-2021">2021</a></li>
+                </ul>
+            </div>
+        -->
+            <div class="block__ID">
+                <span class='title_2__ID'>Number of referrals by each GP's <br>name and address (Data, top 200) </span>
+                <ul>
+                    <li><a href="?/referral-count-by-name-address">All years</a></li>
+                    <li><a href="?/referral-count-by-name-address-2021">2021</a></li>
+                </ul>
+            </div>
+            <!--
+            <div class="block__ID">
+                <span class='title_2__ID'>Number of referrals by each GP's <br>name and address (Chart, top 20) </span>
+                <ul>
+                    <li><a href="?/referral-count-chort">All years</a></li>
+                    <li><a href="?/referral-count-chort-2021">2021</a></li>
+                </ul>
+            </div>
+        -->
+        </div>
+                <!--<li><a href="?/referrer">Referrers</a></li>-->
+        <!--
         <div class="block__ID">
             <span class='title_1__ID'>Data</span>
             <ul>
                 <li><a href="?/client">Clients</a></li>
                 <li><a href="?/referral">Referrals</a></li>
-                <!--<li><a href="?/referrer">Referrers</a></li>-->
                 <li><a href="?/device-number">Device Number</a></li>
             </ul>
         </div>
         <div class="block__ID">
-            <span class='title_1__ID'>Analysis</span>
+            <span class='title_1__ID'>Data Analysis</span>
             <ul>
                 <li><a href="?/client-count">Number of patient for each doctor (Data)</a></li>
                 <li><a href="?/client-count-chart">Number of patient for each doctor (Top 20 Chart)</a></li>
@@ -18,6 +78,7 @@
         </div>
         <div class="block__ID">
         </div>
+    -->
     </div>
     <script>
         function F__ID(){
@@ -142,7 +203,15 @@
             padding:50px 50px 50px 50px;
             font-size:14px;
     		max-width: 100%;
-    		column-count: 3;
+    		column-count: 2;
+    		column-width: 300px;
+    		column-gap: 30px;
+            font-size:14px;
+        }
+        .panel2__ID{
+            font-size:14px;
+    		max-width: 100%;
+    		column-count: 1;
     		column-width: 300px;
     		column-gap: 30px;
             font-size:14px;
@@ -153,7 +222,12 @@
         .title_1__ID{
             font-size: 120%;
             font-weight: bold;
-            color:#12a18d;
+            color:#1a6c61;
+        }
+        .title_2__ID{
+            /*font-size: 100%;*/
+            font-weight: bold;
+            color:#6a7473;
         }
 
         #panel__ID li a{
@@ -178,11 +252,21 @@
         #panel__ID li a:hover i{
             color:red;
         }
+        .new_c__ID{
+            break-before:column;             
+        }
 
         @media screen and (max-width: 1200px) {
             .panel__ID{
                 padding:20px;
                 column-count: 1;
+            }
+            .panel2__ID{
+                padding:20px;
+                column-count: 1;
+            }
+            .new_c__ID{
+                break-before:unset;             
             }
         }
     </style>

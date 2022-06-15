@@ -2,23 +2,26 @@
     <div id=toolbar__ID class="navbar navbar-default">
         <div>
             <button id=query__ID type=button class="btn btn-secondary" title='Search for keyword'>Query</button>
-            <!--<span id=name__ID style='margin-left:50px; margin-right:50px;font-weight:bold;'></span> Total Number of records: <span id=total__ID></span>
-            <button id=export__ID type=button class="btn btn-secondary" title='Export' style='margin-left:50px;margin-right:30px'>Export</button>-->
+            <span id=name__ID style='margin-left:50px; margin-right:50px;font-weight:bold;'></span> Total Number of records: <span id=total__ID></span>
+            <button id=export__ID type=button class="btn btn-secondary" title='Export' style='margin-left:50px;margin-right:30px'>Export</button>
         </div>
         <span id=elapsed__ID style="float:right"></span>
     </div>
-    <div id=chart_container__ID>
-		<div id=chart_div__ID></div>
+    <div>
+        <table id="grid__ID"></table>
     </div>
     <script>
         function F__ID(){
             //-------------------------------------------------
             var m=$vm.module_list['__MODULE__'];
             //-------------------------------------------------
-            var name="Number of patient by each doctor (Top 20)";
+            var name="Number of referrals by each GP in 2021";
             var columns=`
                 Count|count
                 Doctor|doctor
+                Address|address
+                Suburb|suburb
+                Postcode|postcode
             `
             //-------------------------------------------------
             var records=[];
@@ -26,10 +29,18 @@
             var pipeline=
                 [
                     {
+                        "$match":{
+                            "Data.referralDate" : {$regex : "2021"}
+                        }
+                    },
+                    {
                         "$group":{
                             "_id": 
                             {
-                                "Doctor": "$Data.caseManager"
+                                "Doctor": "$Data.ReferrerName",
+                                "Address": "$Data.ReferrerAddress",
+                                "Suburb": "$Data.ReferrerSuburb",
+                                "Postcode": "$Data.ReferrerPostcode"
                             },
                             "count": { $count: {} }
                         }
@@ -41,15 +52,18 @@
                         "$project": {
                             "_id":0,
                             "doctor":"$_id.Doctor",
+                            "address":"$_id.Address",
+                            "suburb":"$_id.Address",
+                            "postcode":"$_id.Postcode",
                             "count":1
                         }
-                    }
+                    },
+                    { $limit: 200}
                 ]    
 
             //-------------------------------------------------
             $('#D__ID').on('load',function(){
                 m.set_req(); m.request_data();
-                $('#chart_div__ID').css('height',($vm.min_height-100));
             })
             //-------------------------------------------------
             m.set_req=function(){
@@ -70,34 +84,12 @@
                         $('#table__ID').html('');
                         return;
                     }
-                    /*
+
                     records=$vm.grid_render_1("__ID", {
                         name:name,
                         columns:columns,
                         rows:res.result,
                     })
-                    */
-
-                    var ds=[['Study','Count',{ role: 'annotation'}]]
-                        var v=res.result;
-				        var N=v.length;
-                        for(var i=1;i<21;i++){
-                            var r=[];
-                            r.push(v[i]['doctor']);
-                            r.push(v[i]['count']);
-                            r.push(v[i]['count']);
-                            ds.push(r);
-                        }
-                        console.log(ds);
-                        //$('#total__ID').text(jD["@odata.count"]);
-                        var data = google.visualization.arrayToDataTable(ds);
-                        var options = {
-                            title: name,
-                            legend: { position: "none" }
-                        }; 
-				        var chart = new google.visualization.ColumnChart(document.getElementById('chart_div__ID'));
-				        chart.draw(data, options);	
-
                 })
             }
             //-------------------------------------------------
