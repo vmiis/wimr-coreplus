@@ -15,7 +15,7 @@
             //-------------------------------------------------
             var m=$vm.module_list['__MODULE__'];
             //-------------------------------------------------
-            var name="Number of referrals by each GP";
+            var name="Number of referrals grouped by GP";
             var columns=`
                 Count|count
                 Doctor|doctor
@@ -48,7 +48,7 @@
                             "_id":0,
                             "doctor":"$_id.Doctor",
                             "address":"$_id.Address",
-                            "suburb":"$_id.Address",
+                            "suburb":"$_id.Suburb",
                             "postcode":"$_id.Postcode",
                             "count":1
                         }

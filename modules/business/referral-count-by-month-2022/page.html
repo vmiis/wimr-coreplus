@@ -15,10 +15,10 @@
             //-------------------------------------------------
             var m=$vm.module_list['__MODULE__'];
             //-------------------------------------------------
-            var name="Number of referrals by each GP";
+            var name="Number of referrals grouped by month in 2022";
             var columns=`
+                Month|month
                 Count|count
-                Doctor|doctor
             `
             //-------------------------------------------------
             var records=[];
@@ -26,21 +26,26 @@
             var pipeline=
                 [
                     {
+                        "$match":{
+                            "Data.referralDate" : {$regex : "2022"}
+                        }
+                    },
+                    {
                         "$group":{
                             "_id": 
                             {
-                                "Doctor": "$Data.ReferrerName"
+                                "Month": { $substr: [ "$Data.referralDate", 3, 2] }
                             },
                             "count": { $count: {} }
                         }
                     },
                     { 
-                        "$sort":{ "count" : -1 } 
+                        "$sort":{ "_id.Month" : 1 } 
                     },
                     {
                         "$project": {
                             "_id":0,
-                            "doctor":"$_id.Doctor",
+                            "month":"$_id.Month",
                             "count":1
                         }
                     },

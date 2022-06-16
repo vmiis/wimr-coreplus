@@ -31,7 +31,7 @@
         <!----------------------------------------------->
         <script app code>
             //---------------------------------------------
-            $VmAPI={};$vm.ver=[0.06,0.01]; $vm['jquery-ui-min-js']=1;
+            $VmAPI={};$vm.ver=[0.07,0.01]; $vm['jquery-ui-min-js']=1;
             $vm.flexindex=new FlexSearch({  doc: {id: "id",field: ["title","contents"]}    });
             $vm.hosting_path=window.location.href.substring(0, window.location.href.split('?')[0].lastIndexOf('/'));
             //---------------------------------------------
@@ -43,7 +43,7 @@
                 token:          {url:$vm.hosting_path+"/modules/system/token.html"},
                 query:          {url:$vm.hosting_path+"/modules/system/query.html"},
                 vmext:          {url:$vm.hosting_path+"/modules/system/vm-extension.html"},
-                panel:          {url:$vm.hosting_path+"/modules/panels/main.html"},
+                panel:          {url:$vm.hosting_path+"/modules/panels/main.html",router:1},
 
                 jsonv:      {url:$vm.hosting_path+"/modules/system/viewer-json.html"},
                 gridv:      {url:$vm.hosting_path+"/modules/system/viewer-grid.html"},

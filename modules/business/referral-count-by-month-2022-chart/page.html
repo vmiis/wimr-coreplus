@@ -2,8 +2,6 @@
     <div id=toolbar__ID class="navbar navbar-default">
         <div>
             <button id=query__ID type=button class="btn btn-secondary" title='Query'>Query</button>
-            <!--<span id=name__ID style='margin-left:50px; margin-right:50px;font-weight:bold;'></span> Total Number of records: <span id=total__ID></span>
-            <button id=export__ID type=button class="btn btn-secondary" title='Export' style='margin-left:50px;margin-right:30px'>Export</button>-->
         </div>
         <span id=elapsed__ID style="float:right"></span>
     </div>
@@ -15,10 +13,10 @@
             //-------------------------------------------------
             var m=$vm.module_list['__MODULE__'];
             //-------------------------------------------------
-            var name="Number of patient grouped by doctor (Top 20)";
+            var name="Number of referrals grouped by month in 2022";
             var columns=`
+                Month|month
                 Count|count
-                Doctor|doctor
             `
             //-------------------------------------------------
             var records=[];
@@ -26,24 +24,30 @@
             var pipeline=
                 [
                     {
+                        "$match":{
+                            "Data.referralDate" : {$regex : "2022"}
+                        }
+                    },
+                    {
                         "$group":{
                             "_id": 
                             {
-                                "Doctor": "$Data.caseManager"
+                                "Month": { $substr: [ "$Data.referralDate", 3, 2] }
                             },
                             "count": { $count: {} }
                         }
                     },
                     { 
-                        "$sort":{ "count" : -1 } 
+                        "$sort":{ "_id.Month" : 1 } 
                     },
                     {
                         "$project": {
                             "_id":0,
-                            "doctor":"$_id.Doctor",
+                            "month":"$_id.Month",
                             "count":1
                         }
-                    }
+                    },
+                    { $limit: 200}
                 ]    
 
             //-------------------------------------------------
@@ -70,18 +74,17 @@
                         $('#table__ID').html('');
                         return;
                     }
-                    var ds=[['Study','Count',{ role: 'annotation'}]]
+                    var ds=[['Month','Count',{ role: 'annotation'}]]
                     var v=res.result;
                     var N=v.length;
-                    for(var i=1;i<21;i++){
+                    for(var i=0;i<N;i++){
                         var r=[];
-                        r.push(v[i]['doctor']);
+                        r.push(v[i]['month']);
                         r.push(v[i]['count']);
                         r.push(v[i]['count']);
                         ds.push(r);
                     }
                     console.log(ds);
-                    //$('#total__ID').text(jD["@odata.count"]);
                     var data = google.visualization.arrayToDataTable(ds);
                     var options = {
                         title: name,
