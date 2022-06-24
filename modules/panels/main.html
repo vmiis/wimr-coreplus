@@ -1,6 +1,5 @@
 <div id=D__ID>
     <div id=panel__ID class="panel__ID">
-        
         <div class="block__ID" >
             <span class='title_1__ID'>Data</span>
             <div style="margin-top:6px; width:90%; height:20px; border-top:2px solid #435044"></div>
@@ -10,6 +9,7 @@
                 <ul>
                     <li><a href="?/client">Clients</a></li>
                     <li><a href="?/referral">Referrals</a></li>
+                    <li><a href="?/invoice">Payment Received</a></li>
                     <li><a href="?/device-number">Device Number</a></li>
                 </ul>
             </div>
@@ -19,6 +19,32 @@
             <div style="margin-top:6px; width:90%; height:20px; border-top:2px solid #435044"></div>
         </div>
         <div class="panel2__ID">
+            <div class="block__ID">
+                <span class='title_2__ID'>Total revenue</span>
+                <ul>
+                    <li><a href="?/income-2022-data">2022</a></li>
+                    <li><a href="?/income-2022-chart">2022 chart</a></li>
+                    <li><a href="?/income-2021-data">2021</a></li>
+                    <li><a href="?/income-2021-chart">2021 chart</a></li>
+                    <li><a href="?/income-all-data">All years</a></li>
+                    <li><a href="?/income-all-chart">All years chart</a></li>
+                </ul>
+            </div>
+            <div class="block__ID">
+                <span class='title_2__ID'>Revenue by business unit</span>
+                <ul>
+                    <!--
+                    <li><a href="?/income-2022-chart">2022</a></li>
+                    <li><a href="?/income-2021-chart">2021</a></li>
+                    -->
+                    <li><a href="?/revenue-by-site-2022-data">2022</a></li>
+                    <li><a href="?/revenue-by-site-2022-chart">2022 chart</a></li>
+                    <li><a href="?/revenue-by-site-2021-data">2021</a></li>
+                    <li><a href="?/revenue-by-site-2021-chart">2021 chart</a></li>
+                    <li><a href="?/revenue-by-site-all-data">All years</a></li>
+                    <li><a href="?/revenue-by-site-all-chart">All years chart</a></li>
+                </ul>
+            </div>
             <div class="block__ID">
                 <span class='title_2__ID'>Number of patients grouped by doctor</span>
                 <ul>
@@ -227,7 +253,7 @@
         .panel2__ID{
             font-size:14px;
     		max-width: 100%;
-    		column-count: 1;
+    		column-count: 2;
     		column-width: 300px;
     		column-gap: 30px;
             font-size:14px;

@@ -112,6 +112,75 @@
                 return records;
             }
             //-------------------------------------------------
+            $vm.pivot_data_1=function(data, F, M, V){
+                var records=[];
+                var n_r=[],n_c=[F];
+                for(var i=0;i<data.length;i++){
+                    var r=data[i][F];
+                    var c=data[i][M]; if(c=="") c="No name";
+                    if(n_r.indexOf(r)==-1) n_r.push(r);
+                    if(n_c.indexOf(c)==-1) n_c.push(c);
+                }
+                for(var i=0;i<n_r.length;i++){
+                    var row={};  row[F]=n_r[i];
+                    for(var j=0;j<n_c.length;j++){
+                        var p=n_c[j];
+                        if(p!=F) row[p]='';
+                    }
+                    records.push(row);
+                }
+                for(var i=0;i<data.length;i++){
+                    var r=data[i][F];
+                    var c=data[i][M]; if(c=="") c="No name";
+                    var v=data[i][V];
+                    var I=n_r.indexOf(r);
+                    records[I][c]=v;
+                }
+                return records;
+            }
+            //-------------------------------------------------
+            $vm.pivot_column_1=function(data, F, M, V){
+                var n_c=[F];
+                for(var i=0;i<data.length;i++){
+                    var c=data[i][M]; if(c=="") c="No name";
+                    if(n_c.indexOf(c)==-1) n_c.push(c);
+                }
+                columns="";
+                for(var i=0;i<n_c.length;i++){
+                    if(columns!="") columns+="\r\n";
+                    columns+=n_c[i]+"|"+n_c[i];
+                }
+                return columns;
+            }
+            //-------------------------------------------------
+            $vm.records_value_to_money_1=function(records,start,end){
+                var formatter = new Intl.NumberFormat('en-US', {
+                    style: 'currency',
+                    currency: 'USD',
+                });
+                var J=end;
+                var keys=Object.keys(records[0])
+                if(J==-1) J=keys.length;
+                for(var i=0;i<records.length;i++){
+                    for(var j=start;j<J;j++){
+                        var v=records[i][keys[j]];
+                        records[i][keys[j]]=formatter.format(v);;
+                    }
+                }
+            }
+            //-------------------------------------------------
+            $vm.records_value_to_month_name_1=function(records,j){
+                var keys=Object.keys(records[0])
+                for(var i=0;i<records.length;i++){
+                    var v=records[i][keys[j]];
+
+                    const date = new Date();
+                    date.setMonth(v-1);
+                    var nm=date.toLocaleString('en-US', {month: 'long',});
+                    records[i][keys[j]]=nm;
+                }
+            }
+            //-------------------------------------------------
         }
     </script>   
 </div>
