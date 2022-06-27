@@ -169,6 +169,20 @@
                 }
             }
             //-------------------------------------------------
+            $vm.records_value_to_money_2=function(records,head){
+                var hds=head.split(',')
+                var formatter = new Intl.NumberFormat('en-US', {
+                    style: 'currency',
+                    currency: 'USD',
+                });
+                for(var i=0;i<records.length;i++){
+                    for(var j=0;j<hds.length;j++){
+                        var v=records[i][hds[j]];
+                        if(v!=undefined) records[i][hds[j]]=formatter.format(v);;
+                    }
+                }
+            }
+            //-------------------------------------------------
             $vm.records_value_to_month_name_1=function(records,j){
                 var keys=Object.keys(records[0])
                 for(var i=0;i<records.length;i++){
@@ -178,6 +192,20 @@
                     date.setMonth(v-1);
                     var nm=date.toLocaleString('en-US', {month: 'long',});
                     records[i][keys[j]]=nm;
+                }
+            }
+            //-------------------------------------------------
+            $vm.records_sum_1=function(records,head,sum){
+                var hds=head.split(',')
+                for(var i=0;i<records.length;i++){
+                    var a=0;
+                    for(var j=0;j<hds.length;j++){
+                        var v=records[i][hds[j]];
+                        if(v!=undefined && v!=""){
+                            a+=parseFloat(v);
+                        }
+                    }
+                    records[i][sum]=a;
                 }
             }
             //-------------------------------------------------

@@ -43,4 +43,9 @@
     m[p+"revenue-by-site-2021-data"]          ={url:H+"/business/revenue/revenue-by-site-2021-data/page.html",Table:"coreplus-invoice",form_module:'jsonv',prefix:p};
     m[p+"revenue-by-site-2021-chart"]          ={url:H+"/business/revenue/revenue-by-site-2021-chart/page.html",Table:"coreplus-invoice",form_module:'jsonv',prefix:p};
     
+    m[p+"revenue-by-clinic-doctor-2022-data"]          ={url:H+"/business/revenue/revenue-by-clinic-doctor-2022-data/page.html",Table:"coreplus-invoice",form_module:'jsonv',prefix:p};
+    m[p+"revenue-by-clinic-doctor-2021-data"]          ={url:H+"/business/revenue/revenue-by-clinic-doctor-2021-data/page.html",Table:"coreplus-invoice",form_module:'jsonv',prefix:p};
+    m[p+"revenue-by-clinic-doctor-2022-chart"]          ={url:H+"/business/revenue/revenue-by-clinic-doctor-2022-chart/page.html",Table:"coreplus-invoice",form_module:'jsonv',prefix:p};
+    m[p+"revenue-by-clinic-doctor-2021-chart"]          ={url:H+"/business/revenue/revenue-by-clinic-doctor-2021-chart/page.html",Table:"coreplus-invoice",form_module:'jsonv',prefix:p};
+    
 })();
