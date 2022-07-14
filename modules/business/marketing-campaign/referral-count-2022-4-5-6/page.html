@@ -1,0 +1,102 @@
+<section>
+    <section>
+        <div id=toolbar__ID class="navbar navbar-default" style='background-color: #ccc;'>
+            <div>
+                <button id=query__ID type=button class="btn btn-secondary" title='Search for keyword'>Query</button>
+                <span id=name__ID style='margin-left:50px; margin-right:50px;font-weight:bold;'></span> Total Number of records: <span id=total__ID></span>
+                <button id=export__ID type=button class="btn btn-secondary" title='Export' style='margin-left:50px;margin-right:30px'>Export</button>
+            </div>
+            <span id=elapsed__ID style="float:right"></span>
+        </div>
+        <!--
+        <div id=toolbar__ID class="navbar navbar-default" style='background-color: #ccc;'>
+            <span id=title__ID></span>
+            <button id=export__ID type=button class="btn btn-secondary" title='Export' style='margin-right:10px;'>Export</button>
+        </div>
+        -->
+        <div id=table__ID>
+            <table id=grid__ID></table>
+        </div>
+    </section>
+</section>
+<script>
+    function F__ID(){
+        //-------------------------------
+        var name="Number of referrals by the selected GP in Apirl, May and June 2022"
+        var columns=`
+                Referrer Name|Referrer Name
+                April|April
+                May|May
+                June|June
+                Total|Total
+            `
+
+        $('#title__ID').text(name);
+       
+        var records=[];
+        $('#D__ID').on('load',function(){  
+            jdata="";
+            $('#grid').html('');
+            $vm.request({cmd:'file3',folder:'coreplus',filename:'marketing-campaign-referral-count-2022-4-5-6.csv',encoding:'utf8'},function(res){
+                if(res.result=="403"){
+                    alert("No permissions");
+                    return;
+                }
+                var lines=res.result.split('\r\n');
+                var rows=[];
+                for(var i=1;i<lines.length;i++){
+                    var c=lines[i].split(',');
+                    if(c.length>1){
+                        var row={}
+                        row["Referrer Name"]=c[0];
+                        row.ReferrerID=c[2];
+                        row.Month=c[1];
+                        rows.push(row);
+                    }
+                }
+                records=$vm.pivot_data_1(rows,"Referrer Name","Month","ReferrerID");
+                
+                //var cc=$vm.pivot_column_1(rows,"Referrer Name","Month");
+                //columns=cc+"\r\nTotal|Total";
+
+                var vv4=0,vv5=0,vv6=0;
+                for(var i=0;i<records.length;i++){
+                    var v4=parseInt(records[i].April);  if(isNaN(v4)) v4=0; vv4+=v4;
+                    var v5=parseInt(records[i].May);    if(isNaN(v5)) v5=0; vv5+=v5;
+                    var v6=parseInt(records[i].June);   if(isNaN(v6)) v6=0; vv6+=v6;
+                    records[i].Total=v4+v5+v6;
+                }
+                //-------------------------------------------------
+                //sort
+                var compare=function( a, b ) {
+                    if ( a.Total > b.Total ){
+                        return -1;
+                    }
+                    if ( a.Total < b.Total ){
+                        return 1;
+                    }
+                    return 0;
+                }
+                records.sort(compare);
+                records.push({"April":vv4,"May":vv5,"June":vv6,"Total":vv4+vv5+vv6})
+                //-------------------------------------------------
+
+                records=$vm.grid_render_1("__ID", {
+                        name:name,
+                        columns:columns,
+                        rows:records,
+                })
+                $('#total__ID').text(records.length-1);
+
+            });
+        })
+        //-------------------------------
+        $('#export__ID').on('click',function(){
+            $vm.download_csv(name+".csv",records);
+        })
+        //-------------------------------------------------
+    }
+</script>
+<style>
+    VmInclude:__COMPONENT__/g/grid.01.css
+</style>

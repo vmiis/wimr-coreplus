@@ -48,4 +48,10 @@
     m[p+"revenue-by-clinic-doctor-2022-chart"]          ={url:H+"/business/revenue/revenue-by-clinic-doctor-2022-chart/page.html",Table:"coreplus-invoice",form_module:'jsonv',prefix:p};
     m[p+"revenue-by-clinic-doctor-2021-chart"]          ={url:H+"/business/revenue/revenue-by-clinic-doctor-2021-chart/page.html",Table:"coreplus-invoice",form_module:'jsonv',prefix:p};
     
+    
+    m[p+"marketing-campaign-gp-list-2022-04"]              ={url:H+"/business/marketing-campaign/gp-list-2022-04/page.html",Table:"coreplus-referral",form_module:'jsonv',prefix:p};
+    m[p+"marketing-campaign-referral-count-2022-4-5-6"]    ={url:H+"/business/marketing-campaign/referral-count-2022-4-5-6/page.html",Table:"coreplus-referral",form_module:'jsonv',prefix:p};
+    
+
+
 })();

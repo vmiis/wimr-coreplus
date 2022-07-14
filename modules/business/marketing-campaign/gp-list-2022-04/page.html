@@ -1,0 +1,90 @@
+<section>
+    <section>
+        <div id=toolbar__ID class="navbar navbar-default" style='background-color: #ccc;'>
+            <div>
+                <button id=query__ID type=button class="btn btn-secondary" title='Search for keyword'>Query</button>
+                <span id=name__ID style='margin-left:50px; margin-right:50px;font-weight:bold;'></span> Total Number of records: <span id=total__ID></span>
+                <button id=export__ID type=button class="btn btn-secondary" title='Export' style='margin-left:50px;margin-right:30px'>Export</button>
+            </div>
+            <span id=elapsed__ID style="float:right"></span>
+        </div>
+        <!--
+        <div id=toolbar__ID class="navbar navbar-default" style='background-color: #ccc;'>
+            <span id=title__ID></span>
+            <button id=export__ID type=button class="btn btn-secondary" title='Export' style='margin-right:10px;'>Export</button>
+        </div>
+        -->
+        <div id=table__ID>
+            <table id=grid__ID></table>
+        </div>
+    </section>
+</section>
+<script>
+    function F__ID(){
+        //-------------------------------
+        var name="GP list with marketing letter sent in Apirl 2022"
+        var columns=`
+                Referrer Name|ReferrerName
+                Count|Count
+                Referrer Address|ReferrerAddress
+                Suburb|Suburb
+                Postcode|Postcode
+            `
+        $('#title__ID').text(name);
+       
+        var records=[];
+        $('#D__ID').on('load',function(){  
+            jdata="";
+            $('#grid').html('');
+            $vm.request({cmd:'file3',folder:'coreplus',filename:'gp-list-with-marketing-letter-sent-in-apir-2022.csv',encoding:'utf8'},function(res){
+                if(res.result=="403"){
+                    alert("No permissions");
+                    return;
+                }
+
+                var str = '"test, test2, & test3",1324,,,,http://www.asdf.com';
+
+                var result = str.replace(/"[^"]+"/g, function (match) {
+                    return match.replace(/,/g, '|');
+                });
+
+                var lines=res.result.split('\r\n');
+                var rows=[];
+                var cv=function(s){
+                    return s.replace(/\|/g,',').replace(/(^"|"$)/g, '');
+                }
+                for(var i=1;i<lines.length;i++){
+                    var line=lines[i].replace(/"[^"]+"/g, function (match) {
+                         return match.replace(/,/g, '|');
+                    });
+                    var c=line.split(',');
+                    if(c.length>1){
+                        var row={}
+                        row.ReferrerName=c[0];
+                        row.Count=c[1];
+                        row.ReferrerAddress=cv(c[2]);
+                        row.Suburb=c[3];
+                        row.Postcode=c[4];
+                        rows.push(row);
+                    }
+                }
+                records=rows
+                //-------------------------------------------------
+                records=$vm.grid_render_1("__ID", {
+                        name:name,
+                        columns:columns,
+                        rows:records,
+                })
+                //$('#total__ID').text(records.length-1);
+            });
+        })
+        //-------------------------------
+        $('#export__ID').on('click',function(){
+            $vm.download_csv(name+".csv",records);
+        })
+        //-------------------------------------------------
+    }
+</script>
+<style>
+    VmInclude:__COMPONENT__/g/grid.01.css
+</style>
