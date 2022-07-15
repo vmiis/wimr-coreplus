@@ -41,13 +41,13 @@
                     alert("No permissions");
                     return;
                 }
-
+                /*
                 var str = '"test, test2, & test3",1324,,,,http://www.asdf.com';
 
                 var result = str.replace(/"[^"]+"/g, function (match) {
                     return match.replace(/,/g, '|');
                 });
-
+                */
                 var lines=res.result.split('\r\n');
                 var rows=[];
                 var cv=function(s){

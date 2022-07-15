@@ -80,7 +80,7 @@
                 var txt="<tr><th></th><th></th>";
                 var N=headers.length;
                 for(var i=0;i<N;i++){
-                    txt+="<th>"+headers[i]+"</th>";
+                    txt+="<th data-header="+ps[i]+">"+headers[i]+"</th>";
                 }
                 txt+="</tr>"
                 for(var i=0;i<records.length;i++){
@@ -107,6 +107,14 @@
                     i=$(this).attr('i');
                     $vm.show_module('jsonv',{json_data:rows[i]})
                 });
+                if(input.cell_render!=undefined){
+                    $('#grid'+domid+" td").each(function(index){
+                        var col = $(this).parent().children().index($(this));
+                        var row = $(this).parent().parent().children().index($(this).parent())-1; var I=row;
+                        var column_name=$('#grid'+domid+' th:nth-child('+(col+1)+')').attr('data-header');
+                        input.cell_render(records,row,column_name,$(this))
+                    })
+                }
                 $('#total'+domid).text(records.length);
                 //--------------------------------------------------------
                 return records;
