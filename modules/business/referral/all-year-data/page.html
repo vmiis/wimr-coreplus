@@ -15,10 +15,10 @@
 <script>
     function F__ID(){
         //-------------------------------
-        var name="Revenue grouped by month in 2022"
+        var name="Referrals grouped by GP's name"
         var columns=`
-                Month|Month
-                Amount|amountPaid
+                Referrer Name|ReferrerName
+                Count|ReferralID
             `
         $('#title__ID').text(name);
         var records=[];
@@ -33,35 +33,18 @@
         //-------------------------------------------------
         var query=function(){  
             $('#grid').html('');
-            $vm.request({cmd:'file3',folder:'coreplus',filename:'revenue-2022.csv',encoding:'utf8'},function(res){
+            $vm.request({cmd:'file3',folder:'coreplus',filename:'referral-all-year.csv',encoding:'utf8'},function(res){
                 if(res.result=="403"){
                     alert("No permissions");
                     return;
                 }
                 //-------------------------------------------------
-                var cv=function(s){ return s.replace(/\|/g,',').replace(/(^"|"$)/g, ''); }
-                //-------------------------------------------------
-                var lines=res.result.split('\r\n');
-                var rows=[];
-                var nms=lines[0].split(',');
-                for(var i=1;i<lines.length;i++){
-                    var line=lines[i].replace(/"[^"]+"/g, function (match){ return match.replace(/,/g, '|'); });
-                    var c=line.split(',');
-                    if(c.length>1){
-                        var row={}
-                        for(var j=0;j<nms.length;j++){ row[nms[j].trim()]=cv(c[j]); }
-                        rows.push(row);
-                    }
-                }
-                records=rows
-                //-------------------------------------------------
-                //var compare=function( a, b ) { var p="Year"; if ( a[p] > b[p] ) return -1; else if ( a[p] < b[p] ) return 1; else  return 0;}
-                //records.sort(compare);
+                var rows=$vm.csv_txt_to_rows_1(res.result);
                 //-------------------------------------------------
                 records=$vm.grid_render_1("__ID", {
                         name:name,
                         columns:columns,
-                        rows:records,
+                        rows:rows,
                         cell_render:cell_render
                 })
                 //-------------------------------------------------
@@ -70,17 +53,7 @@
         //-------------------------------------------------
         var cell_render=function(records,row,id,td){
             switch(id){
-                case "amountPaid": 
-                    var v=$(td).text();
-                    if(v!=''){
-                        var vv=parseFloat(v).toLocaleString('en-US', {
-                            style: 'currency',
-                            currency: 'USD',
-                        }); 
-                        $(td).text(vv);
-                        $(td).css('text-align','right')
-                        $(td).css('width','100px')
-                    }
+                case "xxx": 
                     break;
             }
         }
