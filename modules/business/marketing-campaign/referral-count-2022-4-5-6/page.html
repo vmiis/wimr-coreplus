@@ -28,6 +28,7 @@
                 April|April
                 May|May
                 June|June
+                July|July
                 Total|Total
             `
 
@@ -37,7 +38,7 @@
         $('#D__ID').on('load',function(){  
             jdata="";
             $('#grid').html('');
-            $vm.request({cmd:'file3',folder:'coreplus',filename:'marketing-campaign-referral-count-2022-4-5-6.csv',encoding:'utf8'},function(res){
+            $vm.request({cmd:'file3',folder:'coreplus',filename:'marketing-campaign-referral-count-2022-4.csv',encoding:'utf8'},function(res){
                 if(res.result=="403"){
                     alert("No permissions");
                     return;
@@ -59,12 +60,13 @@
                 //var cc=$vm.pivot_column_1(rows,"Referrer Name","Month");
                 //columns=cc+"\r\nTotal|Total";
 
-                var vv4=0,vv5=0,vv6=0;
+                var vv4=0,vv5=0,vv6=0,vv7=0;
                 for(var i=0;i<records.length;i++){
                     var v4=parseInt(records[i].April);  if(isNaN(v4)) v4=0; vv4+=v4;
                     var v5=parseInt(records[i].May);    if(isNaN(v5)) v5=0; vv5+=v5;
                     var v6=parseInt(records[i].June);   if(isNaN(v6)) v6=0; vv6+=v6;
-                    records[i].Total=v4+v5+v6;
+                    var v7=parseInt(records[i].July);   if(isNaN(v7)) v7=0; vv7+=v7;
+                    records[i].Total=v4+v5+v6+v7;
                 }
                 //-------------------------------------------------
                 //sort
@@ -78,7 +80,7 @@
                     return 0;
                 }
                 records.sort(compare);
-                records.push({"April":vv4,"May":vv5,"June":vv6,"Total":vv4+vv5+vv6})
+                records.push({"Referrer Name":"Total","April":vv4,"May":vv5,"June":vv6,"July":vv7,"Total":vv4+vv5+vv6})
                 //-------------------------------------------------
 
                 records=$vm.grid_render_1("__ID", {
