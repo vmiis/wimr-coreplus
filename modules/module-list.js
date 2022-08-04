@@ -76,4 +76,13 @@
     
     m[p+"referral-all-year-data"]          ={url:H+"/business/referral/all-year-data/page.html"};
 
+
+    m[p+"referral-by-doctor-all-year"]          ={url:H+"/business/referral/by-doctor-all-year/page.html"};
+    m[p+"referral-by-doctor-all-year-chart"]          ={url:H+"/business/referral/by-doctor-all-year-chart/page.html"};
+    m[p+"referral-by-doctor-2021"]          ={url:H+"/business/referral/by-doctor-2021/page.html"};
+    m[p+"referral-by-doctor-2021-chart"]          ={url:H+"/business/referral/by-doctor-2021-chart/page.html"};
+    m[p+"referral-by-doctor-2022"]          ={url:H+"/business/referral/by-doctor-2022/page.html"};
+    m[p+"referral-by-doctor-2022-chart"]          ={url:H+"/business/referral/by-doctor-2022-chart/page.html"};
+
+
 })();

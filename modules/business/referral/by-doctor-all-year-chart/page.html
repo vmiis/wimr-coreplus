@@ -1,0 +1,64 @@
+<section>
+    <section>
+        <div id=toolbar__ID class="navbar navbar-default" style='background-color: #ccc;'>
+            <div>
+                <button id=query__ID type=button class="btn btn-secondary" title='Search for keyword'>Query</button>
+                <span id=name__ID style='margin-left:50px; margin-right:50px;font-weight:bold;'></span>
+            </div>
+        </div>
+        <div id=chart_container__ID>
+            <div id=chart_div__ID></div>
+        </div>
+    </section>
+</section>
+<script>
+    function F__ID(){
+        //-------------------------------
+        var name="Referrals grouped by GP's name (Top 20)"
+        //-------------------------------
+        $('#D__ID').on('load',function(){  
+            $('#chart_div__ID').css('height',($vm.min_height-100));
+            query();
+        })
+        //-------------------------------
+        $('#query__ID').on('click',function(){
+            query();
+        })
+        //-------------------------------------------------
+        var query=function(){  
+            
+            $('#grid').html('');
+            $vm.request({cmd:'file3',folder:'coreplus',filename:'referral-by-doctor-all-year.csv',encoding:'utf8'},function(res){
+                if(res.result=="403"){
+                    alert("No permissions");
+                    return;
+                }
+                //-------------------------------------------------
+                var rows=$vm.csv_txt_to_rows_1(res.result);
+                //-------------------------------------------------
+                var columns_array=["ReferrerName","ReferralID"]
+                var ds=[["Doctor","Count",{ role: 'annotation'}]]
+                var N=21;
+                for(var i=1;i<N;i++){
+                    var r=[];
+                    r.push(rows[i]['ReferrerName']);
+                    r.push(parseInt(rows[i]['ReferralID']));
+                    r.push(parseInt(rows[i]['ReferralID']));
+                    ds.push(r);
+                }
+                var data = google.visualization.arrayToDataTable(ds);
+                var options = {
+                    title: name,
+                    legend: { position: "auto" }
+                }; 
+                var chart = new google.visualization.ColumnChart(document.getElementById('chart_div__ID'));
+                chart.draw(data, options);	
+                //-------------------------------------------------
+            });
+        }
+        //-------------------------------------------------
+    }
+</script>
+<style>
+    VmInclude:__COMPONENT__/g/grid.01.css
+</style>
