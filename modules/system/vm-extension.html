@@ -229,11 +229,13 @@
             $vm.csv_encode_1=function(s){ return s.replace(/"[^"]+"/g, function (match){ return match.replace(/,/g, '|'); });}
             $vm.csv_decode_1=function(s){ return s.replace(/\|/g,',').replace(/(^"|"$)/g, ''); }
             //-------------------------------------------------
-            $vm.csv_txt_to_rows_1=function(txt,compare){
+            $vm.csv_txt_to_rows_1=function(txt,compare,rownum){
                 var lines=txt.split('\r\n');
                 var rows=[];
                 var nms=lines[0].split(',');
                 for(var i=1;i<lines.length;i++){
+                    if(rownum!=undefined && i>rownum) break;
+                    lines[i]=lines[i].replace(/""/g,' ');
                     var line=$vm.csv_encode_1(lines[i]);
                     var c=line.split(',');
                     if(c.length>1){

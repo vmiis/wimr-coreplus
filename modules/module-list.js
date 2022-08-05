@@ -84,5 +84,16 @@
     m[p+"referral-by-doctor-2022"]          ={url:H+"/business/referral/by-doctor-2022/page.html"};
     m[p+"referral-by-doctor-2022-chart"]          ={url:H+"/business/referral/by-doctor-2022-chart/page.html"};
 
+    m[p+"referral-by-site-all-year"]        ={url:H+"/business/referral/by-site-all-year/page.html"};
+    m[p+"referral-by-site-2021"]            ={url:H+"/business/referral/by-site-2021/page.html"};
+    m[p+"referral-by-site-2022"]            ={url:H+"/business/referral/by-site-2022/page.html"};
+
+    m[p+"referral-by-all-year"]        ={url:H+"/business/referral/by-all-year/page.html"};
+    m[p+"referral-by-2021"]            ={url:H+"/business/referral/by-2021/page.html"};
+    m[p+"referral-by-2022"]            ={url:H+"/business/referral/by-2022/page.html"};
+    m[p+"referral-by-all-year-chart"]        ={url:H+"/business/referral/by-all-year-chart/page.html"};
+    m[p+"referral-by-2021-chart"]            ={url:H+"/business/referral/by-2021-chart/page.html"};
+    m[p+"referral-by-2022-chart"]            ={url:H+"/business/referral/by-2022-chart/page.html"};
+
 
 })();

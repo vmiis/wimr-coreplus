@@ -14,7 +14,7 @@
 <script>
     function F__ID(){
         //-------------------------------
-        var name="Revenue grouped by year and business unit"
+        var name="Referrals grouped by MONTH IN 2021"
         //-------------------------------
         $('#D__ID').on('load',function(){  
             $('#chart_div__ID').css('height',($vm.min_height-100));
@@ -28,35 +28,33 @@
         var query=function(){  
             
             $('#grid').html('');
-            $vm.request({cmd:'file3',folder:'coreplus',filename:'revenue-all-year-by-site.csv',encoding:'utf8'},function(res){
+            $vm.request({cmd:'file3',folder:'coreplus',filename:'referral-by-2021.csv',encoding:'utf8'},function(res){
                 if(res.result=="403"){
                     alert("No permissions");
                     return;
                 }
                 //-------------------------------------------------
-                var compare=function( a, b ) { var p="Year"; if ( a[p] > b[p] ) return 1; else if ( a[p] < b[p] ) return -1; else  return 0;}
-                var rows=$vm.csv_txt_to_rows_1(res.result,compare);
-                var records=$vm.pivot_data_1(rows, "Year","site","amountPaid");
-                var columns_array=$vm.pivot_column_array_1(rows, "Year","site");
+                //var compare=function( a, b ) { var p="Year"; if ( a[p] > b[p] ) return 1; else if ( a[p] < b[p] ) return -1; else  return 0;}
+                var rows=$vm.csv_txt_to_rows_1(res.result);
                 //-------------------------------------------------
-                var ds=[columns_array]
-                var N=records.length;
-                for(var i=0;i<N;i++){
+                var columns_array=["Month","ReferralID"]
+                var ds=[["Month","Count",{ role: 'annotation'}]]
+                for(var i=0;i<rows.length;i++){
                     var r=[];
-                    for(var j=0;j<columns_array.length;j++){
-                        var v=records[i][columns_array[j]];
-                        if(j!=0){
-                            if(v=='') v=0;
-                            else v=parseFloat(v);
-                        }
-                        r.push(v);
-                    }
+                    r.push(rows[i]['Month']);
+                    r.push(parseInt(rows[i]['ReferralID']));
+                    r.push(parseInt(rows[i]['ReferralID']));
                     ds.push(r);
                 }
                 var data = google.visualization.arrayToDataTable(ds);
                 var options = {
                     title: name,
-                    legend: { position: "auto" }
+                    legend: { position: "auto" },
+                    vAxis: { 
+                            viewWindow: {
+                                min:0
+                            }
+                        }
                 }; 
                 var chart = new google.visualization.ColumnChart(document.getElementById('chart_div__ID'));
                 chart.draw(data, options);	
