@@ -50,7 +50,7 @@
     
     
     m[p+"marketing-campaign-gp-list-2022-04"]              ={url:H+"/business/marketing-campaign/gp-list-2022-04/page.html",Table:"coreplus-referral",form_module:'jsonv',prefix:p};
-    m[p+"marketing-campaign-referral-count-2022-4"]    ={url:H+"/business/marketing-campaign/referral-count-2022-4-5-6/page.html",Table:"coreplus-referral",form_module:'jsonv',prefix:p};
+    m[p+"marketing-campaign-referral-count-2022-4"]    ={url:H+"/business/marketing-campaign/referral-count-2022-4/page.html",Table:"coreplus-referral",form_module:'jsonv',prefix:p};
     
     m[p+"revenue-all-year-data"]          ={url:H+"/business/revenue/all/all-year-data/page.html"};
     m[p+"revenue-all-year-chart"]         ={url:H+"/business/revenue/all/all-year-chart/page.html"};
